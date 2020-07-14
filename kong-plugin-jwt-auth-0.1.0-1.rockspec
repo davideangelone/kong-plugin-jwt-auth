@@ -4,13 +4,13 @@ local pluginName = package:match("^kong%-plugin%-(.+)$")
 
 supported_platforms = {"linux", "macosx"}
 source = {
-   url = "git+https://github.com/bjwschaap/kong-plugin-jwt-auth",
+   url = "git+https://github.com/davideangelone/kong-plugin-jwt-auth",
    tag = "v0.1.0"
 }
 
 description = {
    summary = "A Kong plugin to authorize access based on a roles claim",
-   homepage = "https://github.com/bjwschaap/kong-plugin-jwt-auth",
+   homepage = "https://github.com/davideangelone/kong-plugin-jwt-auth",
    license = "MIT"
 }
 
