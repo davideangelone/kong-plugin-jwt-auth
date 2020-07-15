@@ -1,5 +1,5 @@
 local BasePlugin = require "kong.plugins.base_plugin"
-local responses = require "kong.response.exit"
+---local responses = require "kong.response.exit"
 local constants = require "kong.constants"
 local jwt_decoder = require "kong.plugins.jwt.jwt_parser"
 
@@ -114,7 +114,7 @@ function JWTAuthHandler:access(conf)
   if not token then
     ngx_log(ngx_error, "[jwt-auth plugin] Cannot get JWT token, add the ",
                        "JWT plugin to be able to use the JWT-Auth plugin")
-    return responses.send_HTTP_FORBIDDEN("You cannot consume this service")
+    return kong.response.exit(401, [[{ "message" : "Not authorized" }]])
   end
 
   -- decode token to get roles claim
@@ -129,7 +129,7 @@ function JWTAuthHandler:access(conf)
 
   -- check if no roles claimed..
   if not roles then
-    return responses.send_HTTP_FORBIDDEN("You cannot consume this service")
+    return kong.response.exit(401, [[{ "message" : "Not authorized" }]])
   end
 
   -- if the claim is a string (single role), make it a table
@@ -143,11 +143,11 @@ function JWTAuthHandler:access(conf)
   end
 
   if conf.policy == policy_ANY and not role_in_roles_claim(conf.roles, roles) then
-    return responses.send_HTTP_FORBIDDEN("You cannot consume this service")
+    return kong.response.exit(401, [[{ "message" : "Not authorized" }]])
   end
 
   if conf.policy == policy_ALL and not all_roles_in_roles_claim(conf.roles, roles) then
-    return responses.send_HTTP_FORBIDDEN("You cannot consume this service")
+    return kong.response.exit(401, [[{ "message" : "Not authorized" }]])
   end
 
 end
