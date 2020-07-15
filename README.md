@@ -1,7 +1,7 @@
 ![JWT-Auth Icon](jwt-auth.png)
 
 # kong-plugin-jwt-auth
-Kong plugin that performs authorization based on custom role claim in JWT
+Kong 2.0 plugin that performs authorization based on custom role claim in JWT.
 
 ## How to use
 This plugin is typically used on routes to authorize access to a specific
